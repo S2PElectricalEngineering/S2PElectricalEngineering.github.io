@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="lo">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>S2P Electrical Engineering</title>
+  <style>
+    :root {
+      --bg: #0a0d12;
+      --panel: rgba(20, 27, 36, 0.78);
+      --line: rgba(255, 255, 255, 0.08);
+      --text: #f5f7fb;
+      --muted: #9aa5b5;
+      --blue: #4d8dff;
+      --orange: #ff9a1f;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans Lao", "Phetsarath OT", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top center, rgba(77, 141, 255, 0.20), transparent 22%),
+        radial-gradient(circle at 55% 14%, rgba(255, 154, 31, 0.16), transparent 18%),
+        linear-gradient(180deg, #05070b 0%, #0a0d12 42%, #0f141b 100%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .container {
+      width: min(1160px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(5, 7, 11, 0.72);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 16px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-badge {
+      width: 64px;
+      height: 64px;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      box-shadow: 0 10px 30px rgba(77, 141, 255, 0.12);
+    }
+
+    .brand-badge img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .brand-copy strong {
+      display: block;
+      font-size: 1rem;
+      letter-spacing: 0.01em;
+    }
+
+    .brand-copy span {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover,
+    .lang-switch button:hover {
+      color: var(--text);
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      padding: 4px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .lang-switch button {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .lang-switch button.active {
+      background: linear-gradient(135deg, var(--blue), #2868df);
+      color: #fff;
+    }
+
+    .hero {
+      padding: 72px 0 40px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #c7d0dc;
+      font-size: 0.92rem;
+    }
+
+    h1 {
+      margin: 18px 0 18px;
+      font-size: clamp(2.7rem, 5.5vw, 5rem);
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+    }
+
+    .hero-copy {
+      max-width: 680px;
+      color: var(--muted);
+      font-size: 1.06rem;
+      line-height: 1.9;
+    }
+
+    .accent {
+      background: linear-gradient(135deg, #84b2ff 0%, #5f92ff 35%, #ffb347 72%, #ff8a00 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 0 22px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue), #2868df);
+      color: #fff;
+      box-shadow: 0 16px 34px rgba(77, 141, 255, 0.28);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.03);
+      border-color: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+    }
+
+    .hero-card,
+    .panel,
+    .service-card,
+    .project-card,
+    .contact-item {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+      padding: 24px;
+      border-radius: 30px;
+      min-height: 100%;
+    }
+
+    .hero-card::before,
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(48px);
+    }
+
+    .hero-card::before {
+      inset: -20% auto auto -10%;
+      width: 220px;
+      height: 220px;
+      background: rgba(77, 141, 255, 0.16);
+    }
+
+    .hero-card::after {
+      right: -40px;
+      bottom: -40px;
+      width: 220px;
+      height: 220px;
+      background: rgba(255, 154, 31, 0.14);
+    }
+
+    .hero-card-content {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 20px;
+      height: 100%;
+    }
+
+    .hero-logo-wrap {
+      padding: 14px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-logo {
+      width: min(100%, 360px);
+      margin: 0 auto;
+      border-radius: 18px;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: auto;
+    }
+
+    .stat {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .stat strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text);
+      font-size: 1.5rem;
+    }
+
+    section {
+      padding: 34px 0;
+    }
+
+    .section-title {
+      margin: 0 0 10px;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      letter-spacing: -0.03em;
+    }
+
+    .section-copy {
+      margin: 0 0 26px;
+      max-width: 760px;
+      color: var(--muted);
+      line-height: 1.85;
+    }
+
+    .about-grid,
+    .service-grid,
+    .project-grid,
+    .contact-grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .about-grid,
+    .contact-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .panel,
+    .service-card,
+    .project-card {
+      border-radius: 28px;
+      padding: 26px;
+    }
+
+    .list {
+      display: grid;
+      gap: 14px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .list li {
+      position: relative;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 11px;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--blue), var(--orange));
+    }
+
+    .service-grid,
+    .project-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      font-weight: 700;
+      background: linear-gradient(135deg, rgba(77, 141, 255, 0.22), rgba(255, 154, 31, 0.16));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text);
+    }
+
+    .service-card h3,
+    .project-card h3 {
+      margin: 14px 0 10px;
+      font-size: 1.2rem;
+    }
+
+    .service-card p,
+    .project-card p,
+    .hero-card p,
+    .contact-item {
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .project-card span {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #d8e2ef;
+      font-size: 0.86rem;
+    }
+
+    .contact-card {
+      display: grid;
+      gap: 16px;
+    }
+
+    .contact-item {
+      padding: 18px 20px;
+      border-radius: 18px;
+    }
+
+    .contact-item strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+      font: inherit;
+      outline: none;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #8792a2;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: rgba(77, 141, 255, 0.55);
+      box-shadow: 0 0 0 4px rgba(77, 141, 255, 0.10);
+    }
+
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    footer {
+      padding: 28px 0 48px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid,
+      .about-grid,
+      .service-grid,
+      .project-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-right {
+        width: 100%;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#home">
+        <div class="brand-badge">
+          <img src="logo.png" alt="S2P Electrical Engineering logo">
+        </div>
+        <div class="brand-copy">
+          <strong>S2P Electrical Engineering</strong>
+          <span data-i18n="brandTagline">Powering reliable systems with precision</span>
+        </div>
+      </a>
+
+      <div class="nav-right">
+        <nav class="nav-links">
+          <a href="#about" data-i18n="navAbout">About</a>
+          <a href="#services" data-i18n="navServices">Services</a>
+          <a href="#projects" data-i18n="navProjects">Projects</a>
+          <a href="#contact" data-i18n="navContact">Contact</a>
+        </nav>
+        <div class="lang-switch" aria-label="Language switch">
+          <button type="button" class="active" data-lang="lo">LA</button>
+          <button type="button" data-lang="en">EN</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow" data-i18n="eyebrow">Electrical Systems • Engineering • Maintenance</div>
+          <h1>
+            <span data-i18n="heroTitle1">ສ້າງພະລັງງານໃຫ້ທຸລະກິດ ດ້ວຍ</span>
+            <span class="accent" data-i18n="heroTitle2">ລະບົບໄຟຟ້າທີ່ໜ້າໄວ້ໃຈ</span>
+          </h1>
+          <p class="hero-copy" data-i18n="heroCopy">
+            S2P Electrical Engineering ໃຫ້ບໍລິການອອກແບບ, ຕິດຕັ້ງ, ແລະ ບຳລຸງຮັກສາລະບົບໄຟຟ້າ
+            ສຳລັບໂຮງງານ, ອາຄານພານິດ, ແລະ ໂຄງການພື້ນຖານ ດ້ວຍມາດຕະຖານທີ່ປອດໄພ ແລະ ທັນສະໄໝ.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact" data-i18n="heroBtnPrimary">ຕິດຕໍ່ພວກເຮົາ</a>
+            <a class="btn btn-secondary" href="#services" data-i18n="heroBtnSecondary">ເບິ່ງບໍລິການ</a>
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <div class="hero-card-content">
+            <div class="hero-logo-wrap">
+              <img class="hero-logo" src="logo.png" alt="S2P Electrical Engineering logo">
+            </div>
+            <div>
+              <p style="margin: 0 0 8px;" data-i18n="overviewLabel">Company Overview</p>
+              <h2 style="margin: 0; font-size: 2rem;" data-i18n="overviewTitle">Trusted Engineering Partner</h2>
+              <p style="margin-top: 14px;" data-i18n="overviewCopy">
+                ທີມງານຂອງພວກເຮົາພ້ອມຈັດການທັງວຽກອອກແບບ, ຄວບຄຸມໜ້າງານ,
+                ແລະ ດູແລລະບົບຫຼັງການຕິດຕັ້ງ ໃຫ້ລູກຄ້າໃຊ້ງານໄດ້ຢ່າງມັ່ນໃຈ.
+              </p>
+            </div>
+            <div class="stat-grid">
+              <div class="stat">
+                <strong>10+</strong>
+                <span data-i18n="stat1">ປີປະສົບການ</span>
+              </div>
+              <div class="stat">
+                <strong>120+</strong>
+                <span data-i18n="stat2">ໂຄງການສຳເລັດ</span>
+              </div>
+              <div class="stat">
+                <strong>24/7</strong>
+                <span data-i18n="stat3">ການຊ່ວຍເຫຼືອ</span>
+              </div>
+              <div class="stat">
+                <strong>100%</strong>
+                <span data-i18n="stat4">ເນັ້ນຄວາມປອດໄພ</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container about-grid">
+        <div class="panel">
+          <h2 class="section-title" data-i18n="aboutTitle">ກ່ຽວກັບບໍລິສັດ</h2>
+          <p class="section-copy" data-i18n="aboutCopy">
+            ພວກເຮົາເນັ້ນການສົ່ງມອບວຽກທີ່ແມ່ນຍຳ, ປອດໄພ, ແລະ ກົງເວລາ
+            ສຳລັບລູກຄ້າທຸກຂະໜາດ ຕັ້ງແຕ່ໂຄງການນ້ອຍໄປຈົນເຖິງລະບົບຂະໜາດໃຫຍ່.
+          </p>
+          <ul class="list">
+            <li data-i18n="aboutList1">ອອກແບບລະບົບໄຟຟ້າສຳລັບອາຄານ, ໂຮງງານ, ແລະ ໂຄງການພານິດ</li>
+            <li data-i18n="aboutList2">ຕິດຕັ້ງຕູ້ໄຟ, ລະບົບຈ່າຍໄຟ, lighting, grounding ແລະ control</li>
+            <li data-i18n="aboutList3">ກວດສອບ ແລະ ບຳລຸງຮັກສາເຊິ່ງລົດຄວາມສ່ຽງໃນການໃຊ້ງານ</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h2 class="section-title" data-i18n="visionTitle">Vision & Mission</h2>
+          <p class="section-copy" data-i18n="visionCopy">
+            ເປົ້າໝາຍຂອງພວກເຮົາຄືການເປັນ partner ດ້ານວິສະວະກຳທີ່ລູກຄ້າໄວ້ໃຈໄດ້ໃນລະຍະຍາວ.
+          </p>
+          <ul class="list">
+            <li data-i18n="visionList1">ຍົກລະດັບມາດຕະຖານວຽກວິສະວະກຳໃຫ້ທັນສະໄໝ</li>
+            <li data-i18n="visionList2">ພັດທະນາທີມງານໃຫ້ຮອງຮັບເທັກໂນໂລຊີໃໝ່</li>
+            <li data-i18n="visionList3">ສ້າງຄວາມໝັ້ນໃຈໃຫ້ລູກຄ້າດ້ວຍການບໍລິການທີ່ສະໝໍ້ສະເໝີ</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+        <h2 class="section-title" data-i18n="servicesTitle">ບໍລິການຂອງພວກເຮົາ</h2>
+        <p class="section-copy" data-i18n="servicesCopy">
+          ໂຊລູຊັນທີ່ຖືກອອກແບບໃຫ້ເໝາະກັບໜ້າງານຈິງ ແລະ ຄວາມຕ້ອງການຂອງລູກຄ້າ.
+        </p>
+        <div class="service-grid">
+          <article class="service-card">
+            <div class="service-icon">01</div>
+            <h3>Electrical Design</h3>
+            <p data-i18n="service1">ອອກແບບ single line diagram, load schedule ແລະ ການຄຳນວນລະບົບສຳຄັນ.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-icon">02</div>
+            <h3>Installation</h3>
+            <p data-i18n="service2">ຕິດຕັ້ງ MDB/DB, cable tray, lighting system ແລະ ອຸປະກອນປ້ອງກັນ.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-icon">03</div>
+            <h3>Maintenance</h3>
+            <p data-i18n="service3">Preventive maintenance, inspection ແລະ troubleshooting ເພື່ອໃຫ້ລະບົບເຮັດວຽກຕໍ່ເນື່ອງ.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <h2 class="section-title" data-i18n="projectsTitle">ຜົນງານຕົວຢ່າງ</h2>
+        <p class="section-copy" data-i18n="projectsCopy">
+          ສາມາດປ່ຽນຂໍ້ມູນສ່ວນນີ້ເປັນ project ຈິງຂອງບໍລິສັດໄດ້ທັນທີ.
+        </p>
+        <div class="project-grid">
+          <article class="project-card">
+            <span data-i18n="projectTag1">Factory Project</span>
+            <h3 data-i18n="projectTitle1">ລະບົບໄຟຟ້າໂຮງງານຜະລິດ</h3>
+            <p data-i18n="project1">ອອກແບບ ແລະ ຕິດຕັ້ງລະບົບຈ່າຍໄຟຫຼັກພ້ອມ panel board ແລະ protection system.</p>
+          </article>
+          <article class="project-card">
+            <span data-i18n="projectTag2">Commercial Building</span>
+            <h3 data-i18n="projectTitle2">ອາຄານສຳນັກງານ</h3>
+            <p data-i18n="project2">ດຳເນີນວຽກ lighting, outlet, fire alarm interface ແລະ backup power system.</p>
+          </article>
+          <article class="project-card">
+            <span data-i18n="projectTag3">Public Utility</span>
+            <h3 data-i18n="projectTitle3">ລະບົບສູບນ້ຳ ແລະ control</h3>
+            <p data-i18n="project3">ຕິດຕັ້ງ motor control, automation panel ແລະ monitoring ສຳລັບການໃຊ້ງານຕໍ່ເນື່ອງ.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container contact-grid">
+        <div class="panel contact-card">
+          <div>
+            <h2 class="section-title" data-i18n="contactTitle">ຕິດຕໍ່ພວກເຮົາ</h2>
+            <p class="section-copy" data-i18n="contactCopy">
+              ປ່ຽນຂໍ້ມູນດ້ານລຸ່ມນີ້ເປັນຂໍ້ມູນຈິງຂອງບໍລິສັດໄດ້ເລີຍ.
+            </p>
+          </div>
+          <div class="contact-item">
+            <strong data-i18n="addressLabel">Address</strong>
+            Ban Phonsinuan, Vientiane Capital, Laos
+          </div>
+          <div class="contact-item">
+            <strong data-i18n="phoneLabel">Phone</strong>
+            +856 20 5555 5555
+          </div>
+          <div class="contact-item">
+            <strong>Email</strong>
+            info@s2pelectrical.com
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2 class="section-title" data-i18n="messageTitle">ສົ່ງຂໍ້ຄວາມ</h2>
+          <form onsubmit="sendMessage(event)">
+            <input type="text" data-i18n-placeholder="namePlaceholder" placeholder="ຊື່ຂອງທ່ານ" required>
+            <input type="email" placeholder="Email" required>
+            <input type="text" data-i18n-placeholder="subjectPlaceholder" placeholder="ຫົວຂໍ້">
+            <textarea data-i18n-placeholder="messagePlaceholder" placeholder="ລາຍລະອຽດໂຄງການ ຫຼື ຄວາມຕ້ອງການ"></textarea>
+            <button class="btn btn-primary" type="submit" data-i18n="sendButton">ສົ່ງຂໍ້ຄວາມ</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" data-i18n="footer">© 2026 S2P Electrical Engineering. All rights reserved.</div>
+  </footer>
+
+  <script>
+    const translations = {
+      lo: {
+        brandTagline: "ຂັບເຄື່ອນລະບົບທີ່ໜ້າໄວ້ໃຈດ້ວຍຄວາມແມ່ນຍຳ",
+        navAbout: "ກ່ຽວກັບ",
+        navServices: "ບໍລິການ",
+        navProjects: "ຜົນງານ",
+        navContact: "ຕິດຕໍ່",
+        eyebrow: "ລະບົບໄຟຟ້າ • ວິສະວະກຳ • ບຳລຸງຮັກສາ",
+        heroTitle1: "ສ້າງພະລັງງານໃຫ້ທຸລະກິດ ດ້ວຍ",
+        heroTitle2: "ລະບົບໄຟຟ້າທີ່ໜ້າໄວ້ໃຈ",
+        heroCopy: "S2P Electrical Engineering ໃຫ້ບໍລິການອອກແບບ, ຕິດຕັ້ງ, ແລະ ບຳລຸງຮັກສາລະບົບໄຟຟ້າ ສຳລັບໂຮງງານ, ອາຄານພານິດ, ແລະ ໂຄງການພື້ນຖານ ດ້ວຍມາດຕະຖານທີ່ປອດໄພ ແລະ ທັນສະໄໝ.",
+        heroBtnPrimary: "ຕິດຕໍ່ພວກເຮົາ",
+        heroBtnSecondary: "ເບິ່ງບໍລິການ",
+        overviewLabel: "ພາບລວມບໍລິສັດ",
+        overviewTitle: "ພັນທະມິດວິສະວະກຳທີ່ໄວ້ໃຈໄດ້",
+        overviewCopy: "ທີມງານຂອງພວກເຮົາພ້ອມຈັດການທັງວຽກອອກແບບ, ຄວບຄຸມໜ້າງານ, ແລະ ດູແລລະບົບຫຼັງການຕິດຕັ້ງ ໃຫ້ລູກຄ້າໃຊ້ງານໄດ້ຢ່າງມັ່ນໃຈ.",
+        stat1: "ປີປະສົບການ",
+        stat2: "ໂຄງການສຳເລັດ",
+        stat3: "ການຊ່ວຍເຫຼືອ",
+        stat4: "ເນັ້ນຄວາມປອດໄພ",
+        aboutTitle: "ກ່ຽວກັບບໍລິສັດ",
+        aboutCopy: "ພວກເຮົາເນັ້ນການສົ່ງມອບວຽກທີ່ແມ່ນຍຳ, ປອດໄພ, ແລະ ກົງເວລາ ສຳລັບລູກຄ້າທຸກຂະໜາດ ຕັ້ງແຕ່ໂຄງການນ້ອຍໄປຈົນເຖິງລະບົບຂະໜາດໃຫຍ່.",
+        aboutList1: "ອອກແບບລະບົບໄຟຟ້າສຳລັບອາຄານ, ໂຮງງານ, ແລະ ໂຄງການພານິດ",
+        aboutList2: "ຕິດຕັ້ງຕູ້ໄຟ, ລະບົບຈ່າຍໄຟ, lighting, grounding ແລະ control",
+        aboutList3: "ກວດສອບ ແລະ ບຳລຸງຮັກສາເຊິ່ງລົດຄວາມສ່ຽງໃນການໃຊ້ງານ",
+        visionTitle: "Vision & Mission",
+        visionCopy: "ເປົ້າໝາຍຂອງພວກເຮົາຄືການເປັນ partner ດ້ານວິສະວະກຳທີ່ລູກຄ້າໄວ້ໃຈໄດ້ໃນລະຍະຍາວ.",
+        visionList1: "ຍົກລະດັບມາດຕະຖານວຽກວິສະວະກຳໃຫ້ທັນສະໄໝ",
+        visionList2: "ພັດທະນາທີມງານໃຫ້ຮອງຮັບເທັກໂນໂລຊີໃໝ່",
+        visionList3: "ສ້າງຄວາມໝັ້ນໃຈໃຫ້ລູກຄ້າດ້ວຍການບໍລິການທີ່ສະໝໍ້ສະເໝີ",
+        servicesTitle: "ບໍລິການຂອງພວກເຮົາ",
+        servicesCopy: "ໂຊລູຊັນທີ່ຖືກອອກແບບໃຫ້ເໝາະກັບໜ້າງານຈິງ ແລະ ຄວາມຕ້ອງການຂອງລູກຄ້າ.",
+        service1: "ອອກແບບ single line diagram, load schedule ແລະ ການຄຳນວນລະບົບສຳຄັນ.",
+        service2: "ຕິດຕັ້ງ MDB/DB, cable tray, lighting system ແລະ ອຸປະກອນປ້ອງກັນ.",
+        service3: "Preventive maintenance, inspection ແລະ troubleshooting ເພື່ອໃຫ້ລະບົບເຮັດວຽກຕໍ່ເນື່ອງ.",
+        projectsTitle: "ຜົນງານຕົວຢ່າງ",
+        projectsCopy: "ສາມາດປ່ຽນຂໍ້ມູນສ່ວນນີ້ເປັນ project ຈິງຂອງບໍລິສັດໄດ້ທັນທີ.",
+        projectTag1: "ໂຄງການໂຮງງານ",
+        projectTag2: "ອາຄານພານິດ",
+        projectTag3: "ສາທາລະນະໂພກ",
+        projectTitle1: "ລະບົບໄຟຟ້າໂຮງງານຜະລິດ",
+        projectTitle2: "ອາຄານສຳນັກງານ",
+        projectTitle3: "ລະບົບສູບນ້ຳ ແລະ control",
+        project1: "ອອກແບບ ແລະ ຕິດຕັ້ງລະບົບຈ່າຍໄຟຫຼັກພ້ອມ panel board ແລະ protection system.",
+        project2: "ດຳເນີນວຽກ lighting, outlet, fire alarm interface ແລະ backup power system.",
+        project3: "ຕິດຕັ້ງ motor control, automation panel ແລະ monitoring ສຳລັບການໃຊ້ງານຕໍ່ເນື່ອງ.",
+        contactTitle: "ຕິດຕໍ່ພວກເຮົາ",
+        contactCopy: "ປ່ຽນຂໍ້ມູນດ້ານລຸ່ມນີ້ເປັນຂໍ້ມູນຈິງຂອງບໍລິສັດໄດ້ເລີຍ.",
+        addressLabel: "ທີ່ຢູ່",
+        phoneLabel: "ເບີໂທ",
+        messageTitle: "ສົ່ງຂໍ້ຄວາມ",
+        namePlaceholder: "ຊື່ຂອງທ່ານ",
+        subjectPlaceholder: "ຫົວຂໍ້",
+        messagePlaceholder: "ລາຍລະອຽດໂຄງການ ຫຼື ຄວາມຕ້ອງການ",
+        sendButton: "ສົ່ງຂໍ້ຄວາມ",
+        footer: "© 2026 S2P Electrical Engineering. All rights reserved.",
+        alertMessage: "ຂອບໃຈທີ່ຕິດຕໍ່ພວກເຮົາ! ພວກເຮົາຈະຕອບກັບໂດຍໄວ."
+      },
+      en: {
+        brandTagline: "Powering reliable systems with precision",
+        navAbout: "About",
+        navServices: "Services",
+        navProjects: "Projects",
+        navContact: "Contact",
+        eyebrow: "Electrical Systems • Engineering • Maintenance",
+        heroTitle1: "Powering businesses with",
+        heroTitle2: "trusted electrical systems",
+        heroCopy: "S2P Electrical Engineering provides electrical design, installation, and maintenance services for factories, commercial buildings, and infrastructure projects with safe and modern engineering standards.",
+        heroBtnPrimary: "Contact Us",
+        heroBtnSecondary: "View Services",
+        overviewLabel: "Company Overview",
+        overviewTitle: "Trusted Engineering Partner",
+        overviewCopy: "Our team is ready to handle design work, site supervision, and post-installation support so clients can operate with confidence.",
+        stat1: "Years of experience",
+        stat2: "Completed projects",
+        stat3: "Support service",
+        stat4: "Safety focus",
+        aboutTitle: "About the Company",
+        aboutCopy: "We focus on accurate, safe, and on-time delivery for clients of every size, from small projects to large-scale electrical systems.",
+        aboutList1: "Electrical system design for buildings, factories, and commercial projects",
+        aboutList2: "Installation of electrical panels, power distribution, lighting, grounding, and control systems",
+        aboutList3: "Inspection and maintenance programs that reduce operational risk",
+        visionTitle: "Vision & Mission",
+        visionCopy: "Our goal is to be a long-term engineering partner that clients can trust.",
+        visionList1: "Raise the standard of modern engineering work",
+        visionList2: "Continuously develop our team for new technologies",
+        visionList3: "Build client confidence through dependable service",
+        servicesTitle: "Our Services",
+        servicesCopy: "Solutions designed to match real site conditions and each client's needs.",
+        service1: "Single line diagrams, load schedules, and electrical calculations for critical systems.",
+        service2: "Installation of MDB/DB panels, cable trays, lighting systems, and protection equipment.",
+        service3: "Preventive maintenance, inspection, and troubleshooting for continuous operation.",
+        projectsTitle: "Sample Projects",
+        projectsCopy: "This section can be replaced with your company's real project portfolio.",
+        projectTag1: "Factory Project",
+        projectTag2: "Commercial Building",
+        projectTag3: "Public Utility",
+        projectTitle1: "Factory Electrical System",
+        projectTitle2: "Office Building",
+        projectTitle3: "Water Pump and Control System",
+        project1: "Design and installation of the main power distribution system with panel boards and protection systems.",
+        project2: "Lighting, outlets, fire alarm interface, and backup power system implementation.",
+        project3: "Motor control, automation panels, and monitoring for continuous utility operation.",
+        contactTitle: "Contact Us",
+        contactCopy: "You can replace the information below with your company's real contact details.",
+        addressLabel: "Address",
+        phoneLabel: "Phone",
+        messageTitle: "Send a Message",
+        namePlaceholder: "Your name",
+        subjectPlaceholder: "Subject",
+        messagePlaceholder: "Project details or your requirements",
+        sendButton: "Send Message",
+        footer: "© 2026 S2P Electrical Engineering. All rights reserved.",
+        alertMessage: "Thank you for contacting us. We will get back to you soon."
+      }
+    };
+
+    const langButtons = document.querySelectorAll("[data-lang]");
+    const textNodes = document.querySelectorAll("[data-i18n]");
+    const placeholderNodes = document.querySelectorAll("[data-i18n-placeholder]");
+    let currentLanguage = "lo";
+
+    function setLanguage(language) {
+      currentLanguage = language;
+      document.documentElement.lang = language === "lo" ? "lo" : "en";
+
+      textNodes.forEach((node) => {
+        const key = node.dataset.i18n;
+        if (translations[language][key]) {
+          node.textContent = translations[language][key];
+        }
+      });
+
+      placeholderNodes.forEach((node) => {
+        const key = node.dataset.i18nPlaceholder;
+        if (translations[language][key]) {
+          node.placeholder = translations[language][key];
+        }
+      });
+
+      langButtons.forEach((button) => {
+        button.classList.toggle("active", button.dataset.lang === language);
+      });
+    }
+
+    langButtons.forEach((button) => {
+      button.addEventListener("click", () => setLanguage(button.dataset.lang));
+    });
+
+    function sendMessage(event) {
+      event.preventDefault();
+      alert(translations[currentLanguage].alertMessage);
+    }
+
+    setLanguage("lo");
+  </script>
+</body>
+</html>
