@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="lo">
 <head>
   <meta charset="UTF-8">
@@ -43,7 +43,7 @@
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "S2P Electrical Engineering",
-      "url": "https://S2PElectricalEngineering.github.io/"
+      "url": "https://s2pelectricalengineering.github.io/"
     }
   </script>
   <style>
@@ -458,6 +458,43 @@
       font-size: 0.86rem;
     }
 
+    .project-gallery {
+      margin-top: 26px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .gallery-card {
+      overflow: hidden;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: var(--shadow);
+    }
+
+    .gallery-card img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+
+    .gallery-copy {
+      padding: 18px 20px 20px;
+    }
+
+    .gallery-copy strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    .gallery-copy p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
     .contact-card {
       display: grid;
       gap: 16px;
@@ -518,7 +555,8 @@
       .about-grid,
       .service-grid,
       .project-grid,
-      .contact-grid {
+      .contact-grid,
+      .project-gallery {
         grid-template-columns: 1fr;
       }
 
@@ -597,11 +635,11 @@
             </div>
             <div class="stat-grid">
               <div class="stat">
-                <strong>05+</strong>
+                <strong>10+</strong>
                 <span data-i18n="stat1">ປີປະສົບການ</span>
               </div>
               <div class="stat">
-                <strong>10+</strong>
+                <strong>120+</strong>
                 <span data-i18n="stat2">ໂຄງການສຳເລັດ</span>
               </div>
               <div class="stat">
@@ -641,7 +679,7 @@
           <ul class="list">
             <li data-i18n="visionList1">ຍົກລະດັບມາດຕະຖານວຽກວິສະວະກຳໃຫ້ທັນສະໄໝ</li>
             <li data-i18n="visionList2">ພັດທະນາທີມງານໃຫ້ຮອງຮັບເທັກໂນໂລຊີໃໝ່</li>
-            <li data-i18n="visionList3">ສ້າງຄວາມໝັ້ນໃຈໃຫ້ລູກຄ້າດ້ວຍການບໍລິການທີ່ສະໝໍ່າສະເໝີ</li>
+            <li data-i18n="visionList3">ສ້າງຄວາມໝັ້ນໃຈໃຫ້ລູກຄ້າດ້ວຍການບໍລິການທີ່ສະໝໍ້ສະເໝີ</li>
           </ul>
         </div>
       </div>
@@ -696,6 +734,64 @@
             <p data-i18n="project3">ຕິດຕັ້ງ motor control, automation panel ແລະ monitoring ສຳລັບການໃຊ້ງານຕໍ່ເນື່ອງ.</p>
           </article>
         </div>
+        <div class="project-gallery">
+          <figure class="gallery-card">
+            <img src="piccc/IMG_2807.JPEG" alt="Fire alarm control cabinet and notification devices installed on wall" loading="lazy">
+            <figcaption class="gallery-copy">
+              <strong data-i18n="galleryTitle1">Control Panel and Alarm Devices</strong>
+              <p data-i18n="galleryCopy1">Installed fire alarm control equipment with wall-mounted notification devices.</p>
+            </figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <img src="piccc/IMG_3520.JPEG" alt="Technician pulling fire alarm cable through ceiling" loading="lazy">
+            <figcaption class="gallery-copy">
+              <strong data-i18n="galleryTitle2">Cable Pulling Above Ceiling</strong>
+              <p data-i18n="galleryCopy2">Running fire alarm cable above the suspended ceiling for additional smoke detection points.</p>
+            </figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <img src="piccc/IMG_3523.JPEG" alt="Alarm strobe mounted above doorway" loading="lazy">
+            <figcaption class="gallery-copy">
+              <strong data-i18n="galleryTitle3">Notification Device Placement</strong>
+              <p data-i18n="galleryCopy3">Horn/strobe location mounted near the doorway for clear visible and audible warning.</p>
+            </figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <img src="piccc/IMG_3563.JPEG" alt="Technicians working in office corridor on fire alarm extension" loading="lazy">
+            <figcaption class="gallery-copy">
+              <strong data-i18n="galleryTitle4">Corridor Installation Work</strong>
+              <p data-i18n="galleryCopy4">Technicians carrying out installation and system extension work in the office corridor.</p>
+            </figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <img src="piccc/IMG_3603.JPEG" alt="Close-up of fire alarm control panel circuit boards and wiring" loading="lazy">
+            <figcaption class="gallery-copy">
+              <strong data-i18n="galleryTitle5">Panel Wiring Detail</strong>
+              <p data-i18n="galleryCopy5">Close-up of internal fire alarm panel wiring, modules, relays, and terminal connections.</p>
+            </figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <img src="piccc/IMG_3609.JPEG" alt="Smoke detector prepared for ceiling installation" loading="lazy">
+            <figcaption class="gallery-copy">
+              <strong data-i18n="galleryTitle6">Smoke Detector Installation</strong>
+              <p data-i18n="galleryCopy6">Preparing the ceiling point before fixing and connecting the smoke detector loop.</p>
+            </figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <img src="piccc/IMG_3618.JPEG" alt="Detector wiring extended near air conditioner and ceiling void" loading="lazy">
+            <figcaption class="gallery-copy">
+              <strong data-i18n="galleryTitle7">Extended Detector Point</strong>
+              <p data-i18n="galleryCopy7">Additional detector location installed by routing cable through the ceiling void.</p>
+            </figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <img src="piccc/IMG_9985.JPEG" alt="Technician testing fire alarm panel with clamp meter" loading="lazy">
+            <figcaption class="gallery-copy">
+              <strong data-i18n="galleryTitle8">Pre-Handover Testing</strong>
+              <p data-i18n="galleryCopy8">Electrical measurement and final checking before handing the system over to the client.</p>
+            </figcaption>
+          </figure>
+        </div>
       </div>
     </section>
 
@@ -710,11 +806,11 @@
           </div>
           <div class="contact-item">
             <strong data-i18n="addressLabel">Address</strong>
-            <span data-i18n="addressValue">ບ້ານໂພນສະອາດ/ເມືອງໄຊເສດຖາ/ນະຄອນຫຼວງວຽງຈັນ</span>
+            <span data-i18n="addressValue">ບ້ານ ໂພນສະອາດ ເມື່ອງໄຊເສດຖາ ນະຄອນຫຼວງວຽງຈັນ</span>
           </div>
           <div class="contact-item">
             <strong data-i18n="phoneLabel">Phone</strong>
-            02096194862/02056778597
+            020 96194862
           </div>
           <div class="contact-item">
             <strong>Email</strong>
@@ -776,18 +872,33 @@
         service1: "ອອກແບບ single line diagram, load schedule ແລະ ການຄຳນວນລະບົບສຳຄັນ.",
         service2: "ຕິດຕັ້ງ MDB/DB, cable tray, lighting system ແລະ ອຸປະກອນປ້ອງກັນ.",
         service3: "Preventive maintenance, inspection ແລະ troubleshooting ເພື່ອໃຫ້ລະບົບເຮັດວຽກຕໍ່ເນື່ອງ.",
-        projectsTitle: "ຜົນງານຕົວຢ່າງ",
-        projectsCopy: "ສາມາດປ່ຽນຂໍ້ມູນສ່ວນນີ້ເປັນ project ຈິງຂອງບໍລິສັດໄດ້ທັນທີ.",
-        projectTag1: "ໂຄງການໂຮງງານ",
-        projectTag2: "ອາຄານພານິດ",
-        projectTag3: "ສາທາລະນະໂພກ",
-        projectTitle1: "ລະບົບໄຟຟ້າໂຮງງານຜະລິດ",
-        projectTitle2: "ອາຄານສຳນັກງານ",
-        projectTitle3: "ລະບົບສູບນ້ຳ ແລະ control",
-        project1: "ອອກແບບ ແລະ ຕິດຕັ້ງລະບົບຈ່າຍໄຟຫຼັກພ້ອມ panel board ແລະ protection system.",
-        project2: "ດຳເນີນວຽກ lighting, outlet, fire alarm interface ແລະ backup power system.",
-        project3: "ຕິດຕັ້ງ motor control, automation panel ແລະ monitoring ສຳລັບການໃຊ້ງານຕໍ່ເນື່ອງ.",
-        contactTitle: "ຕິດຕໍ່ພວກເຮົາ",
+                projectsTitle: "ຜົນງານຕິດຕັ້ງແລະຕໍ່ເຕີມລະບົບໄຟອາລາມ",
+        projectsCopy: "ຮູບພາບຈາກໜ້າງານຈິງ ສະແດງຂັ້ນຕອນຕິດຕັ້ງ, ຂະຫຍາຍລະບົບ, ແລະ ການກວດສອບ fire alarm ໃນອາຄານສຳນັກງານ.",
+        projectTag1: "ຕິດຕັ້ງໃໝ່",
+        projectTag2: "ຕໍ່ເຕີມລະບົບ",
+        projectTag3: "ກວດສອບທົດສອບ",
+        projectTitle1: "ຕິດຕັ້ງລະບົບໄຟອາລາມ",
+        projectTitle2: "ຕໍ່ເຕີມລະບົບຕາມພື້ນທີ່ໃຊ້ງານ",
+        projectTitle3: "ກວດສອບ ແລະ ທົດສອບລະບົບ",
+        project1: "ຕິດຕັ້ງຕູ້ຄວບຄຸມ, smoke detector, horn/strobe ແລະ ອຸປະກອນແຈ້ງເຕືອນໃນອາຄານສຳນັກງານ.",
+        project2: "ເພີ່ມຈຸດ detector, ດຶງສາຍເຂົ້າເພດານ, ຈັດລະບຽບສາຍ ແລະ ຂະຫຍາຍວົງຈອນໃຫ້ຄອບຄຸມພື້ນທີ່ເພີ່ມ.",
+        project3: "ກວດວົງຈອນ, ວັດຄ່າ, ທົດສອບການແຈ້ງເຕືອນ ແລະ ຢືນຢັນການເຮັດວຽກກ່ອນສົ່ງມອບ.",
+        galleryTitle1: "ຕູ້ຄວບຄຸມ ແລະ ອຸປະກອນແຈ້ງເຕືອນ",
+        galleryCopy1: "ຮູບການຕິດຕັ້ງຕູ້ຄວບຄຸມລະບົບໄຟອາລາມພ້ອມຈຸດແຈ້ງເຕືອນທີ່ຜະນັງ.",
+        galleryTitle2: "ດຶງສາຍເຂົ້າເພດານ",
+        galleryCopy2: "ດຳເນີນງານຕິດຕັ້ງສາຍ fire alarm ເພື່ອຂະຫຍາຍຈຸດກວດຈັບຄວັນ.",
+        galleryTitle3: "ຕິດຕັ້ງຈຸດແຈ້ງເຕືອນ",
+        galleryCopy3: "ຕຳແໜ່ງ horn/strobe ຖືກຈັດວາງໃກ້ທາງເຂົ້າເພື່ອໃຫ້ເຫັນແລະໄດ້ຍິນຊັດເຈນ.",
+        galleryTitle4: "ຕິດຕັ້ງໃນພື້ນທີ່ທາງເດີນ",
+        galleryCopy4: "ທີມງານປະຕິບັດວຽກຕິດຕັ້ງແລະຈັດອຸປະກອນໃນພື້ນທີ່ສຳນັກງານ.",
+        galleryTitle5: "ງານຕໍ່ສາຍໃນຕູ້ຄວບຄຸມ",
+        galleryCopy5: "ລາຍລະອຽດການຕໍ່ສາຍ, module ແລະ relay ພາຍໃນຕູ້ fire alarm panel.",
+        galleryTitle6: "ການຕິດຕັ້ງ smoke detector",
+        galleryCopy6: "ກຽມຈຸດ detector ທີ່ເພດານກ່ອນຍຶດຕິດແລະເຊື່ອມຕໍ່ວົງຈອນ.",
+        galleryTitle7: "ຂະຫຍາຍຈຸດກວດຈັບ",
+        galleryCopy7: "ເພີ່ມຈຸດ detector ໃນຫ້ອງພາຍໃນໂດຍເດີນສາຍຜ່ານຊ່ອງເພດານ.",
+        galleryTitle8: "ກວດສອບກ່ອນສົ່ງມອບ",
+        galleryCopy8: "ທົດສອບຄ່າໄຟ ແລະ ການເຮັດວຽກຂອງລະບົບກ່ອນສົ່ງມອບໃຫ້ລູກຄ້າ.",        contactTitle: "ຕິດຕໍ່ພວກເຮົາ",
         contactCopy: "ປ່ຽນຂໍ້ມູນດ້ານລຸ່ມນີ້ເປັນຂໍ້ມູນຈິງຂອງບໍລິສັດໄດ້ເລີຍ.",
         addressLabel: "ທີ່ຢູ່",
         addressValue: "ບ້ານ ໂພນສະອາດ ເມື່ອງໄຊເສດຖາ ນະຄອນຫຼວງວຽງຈັນ",
@@ -834,18 +945,33 @@
         service1: "Single line diagrams, load schedules, and electrical calculations for critical systems.",
         service2: "Installation of MDB/DB panels, cable trays, lighting systems, and protection equipment.",
         service3: "Preventive maintenance, inspection, and troubleshooting for continuous operation.",
-        projectsTitle: "Sample Projects",
-        projectsCopy: "This section can be replaced with your company's real project portfolio.",
-        projectTag1: "Factory Project",
-        projectTag2: "Commercial Building",
-        projectTag3: "Public Utility",
-        projectTitle1: "Factory Electrical System",
-        projectTitle2: "Office Building",
-        projectTitle3: "Water Pump and Control System",
-        project1: "Design and installation of the main power distribution system with panel boards and protection systems.",
-        project2: "Lighting, outlets, fire alarm interface, and backup power system implementation.",
-        project3: "Motor control, automation panels, and monitoring for continuous utility operation.",
-        contactTitle: "Contact Us",
+                projectsTitle: "Fire Alarm Installation and Expansion",
+        projectsCopy: "Real site photos showing installation, system extension, and testing work for a fire alarm system in an office building.",
+        projectTag1: "New Installation",
+        projectTag2: "System Expansion",
+        projectTag3: "Testing & Commissioning",
+        projectTitle1: "Fire Alarm System Installation",
+        projectTitle2: "Extension for New Work Areas",
+        projectTitle3: "Inspection and Functional Testing",
+        project1: "Installation of the control panel, smoke detectors, horn/strobes, and notification devices throughout the office area.",
+        project2: "Added detector points, pulled cable above the ceiling, organized wiring, and extended circuits to cover more rooms.",
+        project3: "Checked circuits, measured values, tested alarm outputs, and verified system readiness before handover.",
+        galleryTitle1: "Control Panel and Alarm Devices",
+        galleryCopy1: "Installed fire alarm control equipment with wall-mounted notification devices.",
+        galleryTitle2: "Cable Pulling Above Ceiling",
+        galleryCopy2: "Running fire alarm cable above the suspended ceiling for additional smoke detection points.",
+        galleryTitle3: "Notification Device Placement",
+        galleryCopy3: "Horn/strobe location mounted near the doorway for clear visible and audible warning.",
+        galleryTitle4: "Corridor Installation Work",
+        galleryCopy4: "Technicians carrying out installation and system extension work in the office corridor.",
+        galleryTitle5: "Panel Wiring Detail",
+        galleryCopy5: "Close-up of internal fire alarm panel wiring, modules, relays, and terminal connections.",
+        galleryTitle6: "Smoke Detector Installation",
+        galleryCopy6: "Preparing the ceiling point before fixing and connecting the smoke detector loop.",
+        galleryTitle7: "Extended Detector Point",
+        galleryCopy7: "Additional detector location installed by routing cable through the ceiling void.",
+        galleryTitle8: "Pre-Handover Testing",
+        galleryCopy8: "Electrical measurement and final checking before handing the system over to the client.",        contactTitle: "Contact Us",
         contactCopy: "You can replace the information below with your company's real contact details.",
         addressLabel: "Address",
         addressValue: "Ban Phonsaart Xaysettha District VTE",
@@ -901,3 +1027,6 @@
   </script>
 </body>
 </html>
+
+
+
