@@ -465,6 +465,72 @@
       gap: 20px;
     }
 
+    .project-lead {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 20px;
+      margin-bottom: 26px;
+    }
+
+    .project-lead-card {
+      border-radius: 28px;
+      padding: 26px;
+      background:
+        linear-gradient(135deg, rgba(77, 141, 255, 0.14), rgba(255, 154, 31, 0.10)),
+        rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: var(--shadow);
+    }
+
+    .project-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #dbe6f4;
+      font-size: 0.9rem;
+    }
+
+    .project-lead-card h3 {
+      margin: 16px 0 12px;
+      font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+      letter-spacing: -0.03em;
+    }
+
+    .project-lead-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    .project-meta {
+      display: grid;
+      gap: 14px;
+    }
+
+    .project-meta-item {
+      padding: 18px 20px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: var(--shadow);
+    }
+
+    .project-meta-item strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .project-meta-item span {
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
     .gallery-card {
       overflow: hidden;
       border-radius: 28px;
@@ -473,10 +539,56 @@
       box-shadow: var(--shadow);
     }
 
+    .gallery-media {
+      position: relative;
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: zoom-in;
+      overflow: hidden;
+    }
+
     .gallery-card img {
       width: 100%;
       aspect-ratio: 4 / 3;
       object-fit: cover;
+      transition: transform 0.35s ease, filter 0.35s ease;
+    }
+
+    .gallery-media::after {
+      content: "View";
+      position: absolute;
+      right: 16px;
+      bottom: 16px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(8, 12, 18, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #fff;
+      font-size: 0.82rem;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      pointer-events: none;
+    }
+
+    .gallery-card:hover .gallery-media img,
+    .gallery-media:focus-visible img {
+      transform: scale(1.04);
+      filter: saturate(1.08);
+    }
+
+    .gallery-card:hover .gallery-media::after,
+    .gallery-media:focus-visible::after {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gallery-media:focus-visible {
+      outline: 3px solid rgba(77, 141, 255, 0.7);
+      outline-offset: -3px;
     }
 
     .gallery-copy {
@@ -550,8 +662,75 @@
       color: var(--muted);
     }
 
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: rgba(3, 6, 10, 0.88);
+      backdrop-filter: blur(14px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+
+    .lightbox.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox-dialog {
+      position: relative;
+      width: min(1100px, 100%);
+      max-height: calc(100vh - 48px);
+      overflow: hidden;
+      border-radius: 30px;
+      background: rgba(12, 16, 22, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      z-index: 2;
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(6, 10, 14, 0.72);
+      color: #fff;
+      font: inherit;
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+
+    .lightbox img {
+      width: 100%;
+      max-height: 72vh;
+      object-fit: contain;
+      background: #05070b;
+    }
+
+    .lightbox-copy {
+      padding: 18px 22px 22px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .lightbox-copy strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text);
+      font-size: 1rem;
+    }
+
     @media (max-width: 920px) {
       .hero-grid,
+      .project-lead,
       .about-grid,
       .service-grid,
       .project-grid,
@@ -569,6 +748,20 @@
         width: 100%;
         align-items: flex-start;
         flex-direction: column;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .lightbox {
+        padding: 14px;
+      }
+
+      .lightbox-dialog {
+        border-radius: 22px;
+      }
+
+      .lightbox img {
+        max-height: 60vh;
       }
     }
   </style>
@@ -717,6 +910,23 @@
         <p class="section-copy" data-i18n="projectsCopy">
           ສາມາດປ່ຽນຂໍ້ມູນສ່ວນນີ້ເປັນ project ຈິງຂອງບໍລິສັດໄດ້ທັນທີ.
         </p>
+        <div class="project-lead">
+          <article class="project-lead-card">
+            <span class="project-kicker">Fire Alarm Portfolio</span>
+            <h3>Office Fire Alarm Installation and Extension</h3>
+            <p>From detector cable routing and ceiling installation to control panel termination and final testing, this section now presents the work as a real project portfolio instead of a plain image list.</p>
+          </article>
+          <div class="project-meta">
+            <div class="project-meta-item">
+              <strong>Scope</strong>
+              <span>Panel work, smoke detector installation, horn/strobe placement, wiring extension, and commissioning.</span>
+            </div>
+            <div class="project-meta-item">
+              <strong>Site Story</strong>
+              <span>Each photo shows a different stage of the same job so visitors can see both workmanship and system detail.</span>
+            </div>
+          </div>
+        </div>
         <div class="project-grid">
           <article class="project-card">
             <span data-i18n="projectTag1">Factory Project</span>
@@ -736,56 +946,72 @@
         </div>
         <div class="project-gallery">
           <figure class="gallery-card">
-            <img src="piccc/IMG_2807.JPEG" alt="Fire alarm control cabinet and notification devices installed on wall" loading="lazy">
+            <button class="gallery-media" type="button" data-lightbox-image="piccc/IMG_2807.JPEG" data-lightbox-title="Control Panel and Alarm Devices" data-lightbox-copy="Installed fire alarm control equipment with wall-mounted notification devices." aria-label="Open project image 1">
+              <img src="piccc/IMG_2807.JPEG" alt="Fire alarm control cabinet and notification devices installed on wall" loading="lazy">
+            </button>
             <figcaption class="gallery-copy">
               <strong data-i18n="galleryTitle1">Control Panel and Alarm Devices</strong>
               <p data-i18n="galleryCopy1">Installed fire alarm control equipment with wall-mounted notification devices.</p>
             </figcaption>
           </figure>
           <figure class="gallery-card">
-            <img src="piccc/IMG_3520.JPEG" alt="Technician pulling fire alarm cable through ceiling" loading="lazy">
+            <button class="gallery-media" type="button" data-lightbox-image="piccc/IMG_3520.JPEG" data-lightbox-title="Cable Pulling Above Ceiling" data-lightbox-copy="Running fire alarm cable above the suspended ceiling for additional smoke detection points." aria-label="Open project image 2">
+              <img src="piccc/IMG_3520.JPEG" alt="Technician pulling fire alarm cable through ceiling" loading="lazy">
+            </button>
             <figcaption class="gallery-copy">
               <strong data-i18n="galleryTitle2">Cable Pulling Above Ceiling</strong>
               <p data-i18n="galleryCopy2">Running fire alarm cable above the suspended ceiling for additional smoke detection points.</p>
             </figcaption>
           </figure>
           <figure class="gallery-card">
-            <img src="piccc/IMG_3523.JPEG" alt="Alarm strobe mounted above doorway" loading="lazy">
+            <button class="gallery-media" type="button" data-lightbox-image="piccc/IMG_3523.JPEG" data-lightbox-title="Notification Device Placement" data-lightbox-copy="Horn/strobe location mounted near the doorway for clear visible and audible warning." aria-label="Open project image 3">
+              <img src="piccc/IMG_3523.JPEG" alt="Alarm strobe mounted above doorway" loading="lazy">
+            </button>
             <figcaption class="gallery-copy">
               <strong data-i18n="galleryTitle3">Notification Device Placement</strong>
               <p data-i18n="galleryCopy3">Horn/strobe location mounted near the doorway for clear visible and audible warning.</p>
             </figcaption>
           </figure>
           <figure class="gallery-card">
-            <img src="piccc/IMG_3563.JPEG" alt="Technicians working in office corridor on fire alarm extension" loading="lazy">
+            <button class="gallery-media" type="button" data-lightbox-image="piccc/IMG_3563.JPEG" data-lightbox-title="Corridor Installation Work" data-lightbox-copy="Technicians carrying out installation and system extension work in the office corridor." aria-label="Open project image 4">
+              <img src="piccc/IMG_3563.JPEG" alt="Technicians working in office corridor on fire alarm extension" loading="lazy">
+            </button>
             <figcaption class="gallery-copy">
               <strong data-i18n="galleryTitle4">Corridor Installation Work</strong>
               <p data-i18n="galleryCopy4">Technicians carrying out installation and system extension work in the office corridor.</p>
             </figcaption>
           </figure>
           <figure class="gallery-card">
-            <img src="piccc/IMG_3603.JPEG" alt="Close-up of fire alarm control panel circuit boards and wiring" loading="lazy">
+            <button class="gallery-media" type="button" data-lightbox-image="piccc/IMG_3603.JPEG" data-lightbox-title="Panel Wiring Detail" data-lightbox-copy="Close-up of internal fire alarm panel wiring, modules, relays, and terminal connections." aria-label="Open project image 5">
+              <img src="piccc/IMG_3603.JPEG" alt="Close-up of fire alarm control panel circuit boards and wiring" loading="lazy">
+            </button>
             <figcaption class="gallery-copy">
               <strong data-i18n="galleryTitle5">Panel Wiring Detail</strong>
               <p data-i18n="galleryCopy5">Close-up of internal fire alarm panel wiring, modules, relays, and terminal connections.</p>
             </figcaption>
           </figure>
           <figure class="gallery-card">
-            <img src="piccc/IMG_3609.JPEG" alt="Smoke detector prepared for ceiling installation" loading="lazy">
+            <button class="gallery-media" type="button" data-lightbox-image="piccc/IMG_3609.JPEG" data-lightbox-title="Smoke Detector Installation" data-lightbox-copy="Preparing the ceiling point before fixing and connecting the smoke detector loop." aria-label="Open project image 6">
+              <img src="piccc/IMG_3609.JPEG" alt="Smoke detector prepared for ceiling installation" loading="lazy">
+            </button>
             <figcaption class="gallery-copy">
               <strong data-i18n="galleryTitle6">Smoke Detector Installation</strong>
               <p data-i18n="galleryCopy6">Preparing the ceiling point before fixing and connecting the smoke detector loop.</p>
             </figcaption>
           </figure>
           <figure class="gallery-card">
-            <img src="piccc/IMG_3618.JPEG" alt="Detector wiring extended near air conditioner and ceiling void" loading="lazy">
+            <button class="gallery-media" type="button" data-lightbox-image="piccc/IMG_3618.JPEG" data-lightbox-title="Extended Detector Point" data-lightbox-copy="Additional detector location installed by routing cable through the ceiling void." aria-label="Open project image 7">
+              <img src="piccc/IMG_3618.JPEG" alt="Detector wiring extended near air conditioner and ceiling void" loading="lazy">
+            </button>
             <figcaption class="gallery-copy">
               <strong data-i18n="galleryTitle7">Extended Detector Point</strong>
               <p data-i18n="galleryCopy7">Additional detector location installed by routing cable through the ceiling void.</p>
             </figcaption>
           </figure>
           <figure class="gallery-card">
-            <img src="piccc/IMG_9985.JPEG" alt="Technician testing fire alarm panel with clamp meter" loading="lazy">
+            <button class="gallery-media" type="button" data-lightbox-image="piccc/IMG_9985.JPEG" data-lightbox-title="Pre-Handover Testing" data-lightbox-copy="Electrical measurement and final checking before handing the system over to the client." aria-label="Open project image 8">
+              <img src="piccc/IMG_9985.JPEG" alt="Technician testing fire alarm panel with clamp meter" loading="lazy">
+            </button>
             <figcaption class="gallery-copy">
               <strong data-i18n="galleryTitle8">Pre-Handover Testing</strong>
               <p data-i18n="galleryCopy8">Electrical measurement and final checking before handing the system over to the client.</p>
@@ -835,6 +1061,17 @@
   <footer>
     <div class="container" data-i18n="footer">© 2026 S2P Electrical Engineering. All rights reserved.</div>
   </footer>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-dialog" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle">
+      <button class="lightbox-close" type="button" id="lightboxClose" aria-label="Close image viewer">×</button>
+      <img id="lightboxImage" src="" alt="">
+      <div class="lightbox-copy">
+        <strong id="lightboxTitle"></strong>
+        <span id="lightboxText"></span>
+      </div>
+    </div>
+  </div>
 
   <script>
     const translations = {
@@ -989,7 +1226,33 @@
     const langButtons = document.querySelectorAll("[data-lang]");
     const textNodes = document.querySelectorAll("[data-i18n]");
     const placeholderNodes = document.querySelectorAll("[data-i18n-placeholder]");
+    const galleryButtons = document.querySelectorAll("[data-lightbox-image]");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImage = document.getElementById("lightboxImage");
+    const lightboxTitle = document.getElementById("lightboxTitle");
+    const lightboxText = document.getElementById("lightboxText");
+    const lightboxClose = document.getElementById("lightboxClose");
     let currentLanguage = "lo";
+
+    function openLightbox(button) {
+      const figure = button.closest(".gallery-card");
+      const title = figure?.querySelector(".gallery-copy strong")?.textContent || "";
+      const copy = figure?.querySelector(".gallery-copy p")?.textContent || "";
+      lightboxImage.src = button.dataset.lightboxImage;
+      lightboxImage.alt = button.querySelector("img")?.alt || "";
+      lightboxTitle.textContent = title;
+      lightboxText.textContent = copy;
+      lightbox.classList.add("is-open");
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove("is-open");
+      lightbox.setAttribute("aria-hidden", "true");
+      lightboxImage.src = "";
+      document.body.style.overflow = "";
+    }
 
     function setLanguage(language) {
       currentLanguage = language;
@@ -1016,6 +1279,24 @@
 
     langButtons.forEach((button) => {
       button.addEventListener("click", () => setLanguage(button.dataset.lang));
+    });
+
+    galleryButtons.forEach((button) => {
+      button.addEventListener("click", () => openLightbox(button));
+    });
+
+    lightboxClose.addEventListener("click", closeLightbox);
+
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && lightbox.classList.contains("is-open")) {
+        closeLightbox();
+      }
     });
 
     function sendMessage(event) {
