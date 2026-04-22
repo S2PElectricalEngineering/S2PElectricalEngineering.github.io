@@ -458,11 +458,67 @@
       font-size: 0.86rem;
     }
 
-    .project-gallery {
+    .project-gallery-shell {
       margin-top: 26px;
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .project-gallery-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .project-gallery-note {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .project-gallery-controls {
+      display: flex;
+      gap: 10px;
+    }
+
+    .gallery-nav {
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      font: inherit;
+      font-size: 1.15rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .gallery-nav:hover {
+      transform: translateY(-2px);
+      background: rgba(77, 141, 255, 0.14);
+      border-color: rgba(77, 141, 255, 0.35);
+    }
+
+    .project-gallery-frame {
+      overflow: hidden;
+    }
+
+    .project-gallery {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(280px, 38%);
       gap: 20px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      scroll-behavior: smooth;
+    }
+
+    .project-gallery::-webkit-scrollbar {
+      display: none;
     }
 
     .project-lead {
@@ -537,6 +593,7 @@
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow: var(--shadow);
+      scroll-snap-align: start;
     }
 
     .gallery-media {
@@ -733,10 +790,13 @@
       .project-lead,
       .about-grid,
       .service-grid,
-      .project-grid,
-      .contact-grid,
-      .project-gallery {
+      .contact-grid {
         grid-template-columns: 1fr;
+      }
+
+      .project-gallery-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
       }
 
       .nav {
@@ -752,6 +812,18 @@
     }
 
     @media (max-width: 640px) {
+      .project-gallery {
+        grid-auto-columns: 88%;
+      }
+
+      .project-gallery-toolbar {
+        display: grid;
+      }
+
+      .project-gallery-controls {
+        justify-content: flex-start;
+      }
+
       .lightbox {
         padding: 14px;
       }
@@ -927,24 +999,16 @@
             </div>
           </div>
         </div>
-        <div class="project-grid">
-          <article class="project-card">
-            <span data-i18n="projectTag1">Fire Alarm Project</span>
-            <h3 data-i18n="projectTitle1">ລະບົບໄຟຟ້າໂຮງງານຜະລິດ</h3>
-            <p data-i18n="project1">ອອກແບບ ແລະ ຕິດຕັ້ງລະບົບຈ່າຍໄຟຫຼັກພ້ອມ panel board ແລະ protection system.</p>
-          </article>
-          <article class="project-card">
-            <span data-i18n="projectTag2">Fire Alarm Project</span>
-            <h3 data-i18n="projectTitle2">ອາຄານສຳນັກງານ</h3>
-            <p data-i18n="project2">ດຳເນີນວຽກ lighting, outlet, fire alarm interface ແລະ backup power system.</p>
-          </article>
-          <article class="project-card">
-            <span data-i18n="projectTag3">Fire Alarm Project</span>
-            <h3 data-i18n="projectTitle3">ລະບົບສູບນ້ຳ ແລະ control</h3>
-            <p data-i18n="project3">ຕິດຕັ້ງ motor control, automation panel ແລະ monitoring ສຳລັບການໃຊ້ງານຕໍ່ເນື່ອງ.</p>
-          </article>
-        </div>
-        <div class="project-gallery">
+        <div class="project-gallery-shell">
+          <div class="project-gallery-toolbar">
+            <div class="project-gallery-note">Scroll through the full image set or use the arrow buttons to browse the project.</div>
+            <div class="project-gallery-controls">
+              <button class="gallery-nav" type="button" id="galleryPrev" aria-label="Scroll gallery left">←</button>
+              <button class="gallery-nav" type="button" id="galleryNext" aria-label="Scroll gallery right">→</button>
+            </div>
+          </div>
+          <div class="project-gallery-frame">
+            <div class="project-gallery" id="projectGallery">
           <figure class="gallery-card">
             <button class="gallery-media" type="button" data-lightbox-image="piccc/IMG_2807.JPEG" data-lightbox-title="Control Panel and Alarm Devices" data-lightbox-copy="Installed fire alarm control equipment with wall-mounted notification devices." aria-label="Open project image 1">
               <img src="piccc/IMG_2807.JPEG" alt="Fire alarm control cabinet and notification devices installed on wall" loading="lazy">
@@ -1017,6 +1081,8 @@
               <p data-i18n="galleryCopy8">Electrical measurement and final checking before handing the system over to the client.</p>
             </figcaption>
           </figure>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1227,6 +1293,9 @@
     const textNodes = document.querySelectorAll("[data-i18n]");
     const placeholderNodes = document.querySelectorAll("[data-i18n-placeholder]");
     const galleryButtons = document.querySelectorAll("[data-lightbox-image]");
+    const projectGallery = document.getElementById("projectGallery");
+    const galleryPrev = document.getElementById("galleryPrev");
+    const galleryNext = document.getElementById("galleryNext");
     const lightbox = document.getElementById("lightbox");
     const lightboxImage = document.getElementById("lightboxImage");
     const lightboxTitle = document.getElementById("lightboxTitle");
@@ -1284,6 +1353,17 @@
     galleryButtons.forEach((button) => {
       button.addEventListener("click", () => openLightbox(button));
     });
+
+    function scrollGallery(direction) {
+      if (!projectGallery) return;
+      const firstCard = projectGallery.querySelector(".gallery-card");
+      const gap = 20;
+      const step = firstCard ? firstCard.getBoundingClientRect().width + gap : projectGallery.clientWidth * 0.85;
+      projectGallery.scrollBy({ left: step * direction, behavior: "smooth" });
+    }
+
+    galleryPrev?.addEventListener("click", () => scrollGallery(-1));
+    galleryNext?.addEventListener("click", () => scrollGallery(1));
 
     lightboxClose.addEventListener("click", closeLightbox);
 
